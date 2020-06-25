@@ -2,6 +2,7 @@ package pl.wilczynski.homeplanner.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 public class BudgetEntry {
@@ -12,7 +13,7 @@ public class BudgetEntry {
     private final float value;
     private final String currency;
 
-    public BudgetEntry(@JsonProperty("id") UUID id,
+    public BudgetEntry(@JsonProperty("id") @NotNull UUID id,
                        @JsonProperty("date") String date,
                        @JsonProperty("description") String description,
                        @JsonProperty("value") float value,

@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.wilczynski.homeplanner.backend.model.BudgetEntry;
 import pl.wilczynski.homeplanner.backend.service.BudgetService;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -30,10 +31,20 @@ public class BudgetController {
         return budgetService.getAllBudgetEntries();
     }
 
-    @GetMapping(path = "/   {id}")
+    @GetMapping(path = "/{id}")
     public BudgetEntry getBudgetEntryById(@PathVariable("id") UUID id){
         return budgetService.getBudgetEntryById(id)
                 .orElse(null);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public int deleteBudgetEntryById(@PathVariable("id") UUID id){
+        return budgetService.deleteBudgetEntry(id);
+    }
+
+    @PutMapping(path = "/{id}")
+    public int updateBudgetEntryById(@PathVariable("id") UUID id, @RequestBody BudgetEntry budgetEntry){
+        return budgetService.updateBudgetEntry(id, budgetEntry);
     }
 
 }

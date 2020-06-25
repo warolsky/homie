@@ -32,4 +32,12 @@ public class BudgetService {
         return budgetEntryDao.getBudgetEntryById(id);
     }
 
+    public int deleteBudgetEntry(UUID id){
+        return budgetEntryDao.deleteBudgetEntryById(id);
+    }
+
+    public int updateBudgetEntry(UUID id, BudgetEntry budgetEntry){
+        return budgetEntryDao.updateBudgetEntryById(id, budgetEntry);
+    }
+
 }

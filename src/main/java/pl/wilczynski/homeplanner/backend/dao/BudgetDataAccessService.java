@@ -48,16 +48,17 @@ public class BudgetDataAccessService implements BudgetEntryDao{
     }
 
     @Override
-    public int updateBudgetEntryById(UUID id, BudgetEntry budgetEntry) {
+    public int updateBudgetEntryById(UUID id, BudgetEntry budgetEntryUpdate) {
         return getBudgetEntryById(id)
-                .map(b -> {
-                    int indexOfBudgetEntryToDelete = DB.indexOf(budgetEntry);
+                .map(budEnt -> {
+                    int indexOfBudgetEntryToDelete = DB.indexOf(budEnt);
                     if (indexOfBudgetEntryToDelete >= 0) {
-                        DB.set(indexOfBudgetEntryToDelete, budgetEntry);
+                        DB.set(indexOfBudgetEntryToDelete, budgetEntryUpdate);
                         return 1;
                     }
                     return 0;
                 })
                 .orElse(0);
     }
+
 }
