@@ -5,23 +5,52 @@ import com.vaadin.flow.component.tabs.Tabs;
 
 public class MenuBar {
 
-    Tabs tabs = new Tabs();
+    private Tabs.Orientation orientation;
+    private int numberOfCategories;
+    private String[] categoryName = new String[10];
+    private Tab[] category = new Tab[10];
+    private Tabs tabs = new Tabs();
 
-    public Tabs MenuBar(Tabs.Orientation orientation) {
+
+    public MenuBar() {
 
         //preset orientation
         tabs.setOrientation(orientation);
 
-        //for now static value, in future there will be an option for adding new tabs from settings
-        Tab categoryMain = new Tab("Strona główna");
-        Tab categoryBudget = new Tab("Budżet domowy");
-        Tab categoryReceipts = new Tab("Paragony");
+        for (int i = 0; i < numberOfCategories; i++) {
+            category[i] = new Tab(categoryName[i]);
+            tabs.add(category[i]);
+        }
 
-        tabs.add(categoryMain, categoryBudget, categoryReceipts);
-
-        return tabs;
     }
 
+    public Tabs.Orientation getOrientation() {
+        return orientation;
+    }
+
+    public void setOrientation(Tabs.Orientation orientation) {
+        this.orientation = orientation;
+    }
+
+    public int getNumberOfCategories() {
+        return numberOfCategories;
+    }
+
+    public void setNumberOfCategories(int numberOfCategories) {
+        this.numberOfCategories = numberOfCategories;
+    }
+
+    public String[] getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String[] categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public Tabs getTabs() {
+        return tabs;
+    }
 }
 
 
