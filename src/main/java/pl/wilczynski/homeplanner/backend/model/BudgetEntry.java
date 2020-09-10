@@ -1,12 +1,16 @@
 package pl.wilczynski.homeplanner.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
+@Document(collection = "budgetentries")
 public class BudgetEntry {
 
+    @Id
     private final UUID id;
     private final String date;
     private final String description;
@@ -45,4 +49,14 @@ public class BudgetEntry {
         return currency;
     }
 
+    @Override
+    public String toString() {
+        return "BudgetEntry{" +
+                "id=" + id +
+                ", date='" + date + '\'' +
+                ", description='" + description + '\'' +
+                ", value=" + value +
+                ", currency='" + currency + '\'' +
+                '}';
+    }
 }
