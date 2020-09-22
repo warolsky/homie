@@ -3,8 +3,8 @@ package pl.wilczynski.homeplanner.backend.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import pl.wilczynski.homeplanner.backend.dao.BudgetEntryDao;
-import pl.wilczynski.homeplanner.backend.model.BudgetEntry;
+import pl.wilczynski.homeplanner.backend.dao.budget.BudgetEntryDao;
+import pl.wilczynski.homeplanner.backend.model.budget.BudgetEntry;
 
 import java.util.List;
 import java.util.Optional;
