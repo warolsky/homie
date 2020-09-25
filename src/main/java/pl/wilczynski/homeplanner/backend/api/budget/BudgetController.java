@@ -1,13 +1,11 @@
-package pl.wilczynski.homeplanner.backend.api;
+package pl.wilczynski.homeplanner.backend.api.budget;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pl.wilczynski.homeplanner.backend.model.BudgetEntry;
+import pl.wilczynski.homeplanner.backend.model.budget.BudgetEntry;
 import pl.wilczynski.homeplanner.backend.service.BudgetService;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RequestMapping("api/budget")

@@ -1,6 +1,6 @@
-package pl.wilczynski.homeplanner.backend.dao;
+package pl.wilczynski.homeplanner.backend.dao.budget;
 
-import pl.wilczynski.homeplanner.backend.model.BudgetEntry;
+import pl.wilczynski.homeplanner.backend.model.budget.BudgetEntry;
 
 import java.util.List;
 import java.util.Optional;

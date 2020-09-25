@@ -1,17 +1,26 @@
-package pl.wilczynski.homeplanner.backend.dao;
+package pl.wilczynski.homeplanner.backend.dao.budget;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import pl.wilczynski.homeplanner.backend.model.BudgetEntry;
+import pl.wilczynski.homeplanner.backend.model.budget.BudgetEntry;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Repository("fakeDao")
+@Repository("postgres")
 public class BudgetDataAccessService implements BudgetEntryDao{
 
-    private static List<BudgetEntry> DB = new ArrayList<>();
+    private final JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public BudgetDataAccessService(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    List<BudgetEntry> DB = new ArrayList<>();
 
     @Override
     public int insertBudgetEntry(UUID id, BudgetEntry budgetEntry) {
@@ -22,6 +31,8 @@ public class BudgetDataAccessService implements BudgetEntryDao{
                 budgetEntry.getValue(),
                 budgetEntry.getCurrency()));
         return 1;
+
+
 
     }
 

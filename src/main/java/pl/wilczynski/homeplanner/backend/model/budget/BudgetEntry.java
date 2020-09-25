@@ -1,23 +1,19 @@
-package pl.wilczynski.homeplanner.backend.model;
+package pl.wilczynski.homeplanner.backend.model.budget;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
-@Document(collection = "budgetentries")
 public class BudgetEntry {
 
-    @Id
+
     private final UUID id;
     private final String date;
     private final String description;
     private final float value;
     private final String currency;
 
-    public BudgetEntry(@JsonProperty("id") @NotNull UUID id,
+    public BudgetEntry(@JsonProperty("id") UUID id,
                        @JsonProperty("date") String date,
                        @JsonProperty("description") String description,
                        @JsonProperty("value") float value,
