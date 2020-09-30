@@ -16,7 +16,7 @@ public class BudgetService {
     private final BudgetEntryDao budgetEntryDao;
 
     @Autowired
-    public BudgetService(@Qualifier("fakeDao") BudgetEntryDao budgetEntryDao) {
+    public BudgetService(@Qualifier("postgres") BudgetEntryDao budgetEntryDao) {
         this.budgetEntryDao = budgetEntryDao;
     }
 

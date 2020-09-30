@@ -20,56 +20,89 @@ public class BudgetDataAccessService implements BudgetEntryDao{
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    List<BudgetEntry> DB = new ArrayList<>();
+//    List<BudgetEntry> DB = new ArrayList<>();
 
     @Override
     public int insertBudgetEntry(UUID id, BudgetEntry budgetEntry) {
 
-        DB.add(new BudgetEntry(id,
+        final String sql = "INSERT INTO budget VALUES (id = ?, " +
+                "date = ?, " +
+                "description = ?, " +
+                "value = ?, " +
+                "currency = ?)";
+
+        jdbcTemplate.update(sql, new Object[]{
+                id,
                 budgetEntry.getDate(),
                 budgetEntry.getDescription(),
                 budgetEntry.getValue(),
-                budgetEntry.getCurrency()));
+                budgetEntry.getCurrency()
+        });
+
         return 1;
-
-
 
     }
 
     @Override
     public List<BudgetEntry> getAllBudgetEntries() {
-        return DB;
+
+        final String sql = "SELECT id, date, description, value, currency FROM budget";
+        List<BudgetEntry> budgetEntry = jdbcTemplate.query(sql, (resultSet, i) -> new BudgetEntry(
+                UUID.fromString(resultSet.getString("id")),
+                resultSet.getString("date"),
+                resultSet.getString("description"),
+                Float.valueOf(resultSet.getString("value")),
+                resultSet.getString("currency")
+        ));
+        return budgetEntry;
+
     }
 
     @Override
     public Optional<BudgetEntry> getBudgetEntryById(UUID id) {
-        return DB.stream()
-                .filter(budgetEntry -> budgetEntry.getId().equals(id))
-                .findFirst();
+
+        final String sql = "SELECT id, date, description, value, currency FROM budget WHERE id = ?";
+        BudgetEntry budgetEntry = jdbcTemplate.queryForObject(sql, new Object[]{id}, (resultSet, i) -> new BudgetEntry(
+                UUID.fromString(resultSet.getString("id")),
+                resultSet.getString("date"),
+                resultSet.getString("description"),
+                Float.valueOf(resultSet.getString("value")),
+                resultSet.getString("currency")
+        ));
+        return Optional.ofNullable(budgetEntry);
+
     }
 
     @Override
     public int deleteBudgetEntryById(UUID id) {
-        Optional<BudgetEntry> budgetEntry = getBudgetEntryById(id);
-        if(budgetEntry.isEmpty()){
-            return 0;
-        }
-        DB.remove(budgetEntry.get());
+
+        final String sql = "DELETE FROM budget WHERE id = ?";
+        jdbcTemplate.update(sql, new Object[]{id});
         return 1;
+
     }
 
     @Override
     public int updateBudgetEntryById(UUID id, BudgetEntry budgetEntryUpdate) {
-        return getBudgetEntryById(id)
-                .map(budEnt -> {
-                    int indexOfBudgetEntryToDelete = DB.indexOf(budEnt);
-                    if (indexOfBudgetEntryToDelete >= 0) {
-                        DB.set(indexOfBudgetEntryToDelete, budgetEntryUpdate);
-                        return 1;
-                    }
-                    return 0;
-                })
-                .orElse(0);
+
+        final String sql = "UPDATE budget " +
+                "SET " +
+                "id = ?, " +
+                "date = ?, " +
+                "description = ?, " +
+                "value = ?, " +
+                "currency = ? " +
+                "WHERE id = ?";
+
+        jdbcTemplate.update(sql, new Object[]{
+                budgetEntryUpdate.getId(),
+                budgetEntryUpdate.getDate(),
+                budgetEntryUpdate.getDescription(),
+                budgetEntryUpdate.getValue(),
+                budgetEntryUpdate.getCurrency(),
+                id});
+        return 1;
+
     }
 
 }
